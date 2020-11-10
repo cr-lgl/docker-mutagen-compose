@@ -1,0 +1,47 @@
+version: '3.7'
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  code:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: $PWD/../php
+
+services:
+  workspace:
+    tty: true
+    build:
+      context: ./workspace
+      dockerfile: ./Dockerfile
+      args:
+        PHP_VERSION: '7.4.9'
+        APP_USER_ID: '1000'
+        APP_GROUP_ID: '1000'
+    volumes:
+      - code:/var/www/html
+    networks:
+      - backend
+
+x-mutagen:
+  sync:
+    defaults:
+      ignore:
+        vcs: true
+    code:
+      alpha: "."
+      beta: "volume://code"
+      ignore:
+        paths:
+          - ".idea"
+          - ".git"
+      configurationBeta:
+        permissions:
+          defaultFileMode: 0644
+          defaultDirectoryMode: 0755
+          defaultOwner: "id:1000"
+          defaultGroup: "id:1000"
