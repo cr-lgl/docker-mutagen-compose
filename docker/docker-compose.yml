@@ -33,7 +33,7 @@ x-mutagen:
       ignore:
         vcs: true
     code:
-      alpha: "."
+      alpha: "../php"
       beta: "volume://code"
       ignore:
         paths:
