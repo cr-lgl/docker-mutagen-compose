@@ -1,5 +1,9 @@
 # docker-mutagen-compose
 
+## Requirements
+* mutagen
+* mutagen-beta
+
 ## Getting Started
 
 ```bash
